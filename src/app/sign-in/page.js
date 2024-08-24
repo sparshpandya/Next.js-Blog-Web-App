@@ -1,6 +1,18 @@
+import Link from 'next/link'
 import React from 'react'
 
-function SignIn() {
+export const metadata = {
+    title: 'Sign In | Techfacts Central',
+    description: 'Sign In/Log In page - techfacts central.',
+    keywords: 'techfacts central, signin techfacts central, techfacts central login, techfacts central account',
+    author: 'Sparsh Pandya',
+    openGraph: {
+        title: 'Sign In | Techfacts Central',
+        description: 'Sign In/Log In to your account - techfacts central.'
+    }
+}
+
+export default function SignIn() {
     return (
         <div>
             <section className="eblog-sign-up-area tp-section-gap">
@@ -20,9 +32,9 @@ function SignIn() {
                                         <div className="single-input-wrapper check two">
                                             <div className="check-inner">
                                                 <input type="checkbox" id="terms" name="terms" value="terms of use" />
-                                                    <label for="terms"> Remember me</label><br />
+                                                    <label htmlFor="terms"> Remember me</label><br />
                                                     </div>
-                                                    <a href="reset-password.html" className="forgot-password">Forgot password?</a>
+                                                    <Link href="/reset-password" className="forgot-password">Forgot password?</Link>
                                             </div>
                                             <div className="single-input-wrapper">
                                                 <button type="submit" className="subscribe-btn tp-btn btn-primary">Log in</button>
@@ -42,7 +54,7 @@ function SignIn() {
 
                                         </div>
                                         <div className="form-bottom-text">
-                                            <p className="text-center">Have no account yet? <a href="sign-up.html">Sign up</a> </p>
+                                            <p className="text-center">Have no account yet? <Link href="/sign-up">Sign up</Link> </p>
                                         </div>
                                 </form>
                             </div>
@@ -53,5 +65,3 @@ function SignIn() {
         </div>
     )
 }
-
-export default SignIn

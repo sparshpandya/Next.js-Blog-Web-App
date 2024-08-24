@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PageNotFound = () => {
+export default function PageNotFound () {
   return (
       <section className="eblog-error-area tp-section-top-80">
         <div className="container">
@@ -23,5 +23,3 @@ const PageNotFound = () => {
       </section>
   )
 }
-
-export default PageNotFound

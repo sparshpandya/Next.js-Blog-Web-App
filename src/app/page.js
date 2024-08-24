@@ -1,19 +1,20 @@
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata = {
+    title: 'Home | Techfacts Central',
+    description: 'Explore the latest news about technology. Be it gadgets, artificial intelligence or current technology trends, we will keep you updated with our blog section changing everyday.',
+    keywords: 'technology news, latest trends, artificial intelligence trends',
+    author: 'Sparsh Pandya',
+    openGraph: {
+        title: 'Home | Techfacts Central',
+        description: 'Get information about latest technology, AI and gadgets in just a click.'
+    }
+}
 
 export default function Home() {
   return (
     <div>
-      <Head>
-        <title>Home Page - Techfacts Central</title>
-        <meta name="description" content="Explore the latest news about technology. Be it gadgets, artificial intelligence or current technology trends, we will keep you updated with our blog section changing everyday." />
-        <meta name="keywords" content="technology news, latest trends, artificial intelligence trends" />
-        <meta name="author" content="Sparsh Pandya" />
-        {/* adding open graph tags for social media engagement */}
-        <meta name="og:title" content="Home - Techfacts Central" />
-        <meta name="og:description" content="Get information about latest technology, AI and gadgets in just a click." />
-      </Head>
     <section className="eblog-banner-area">
         <div className="banner-inner">
             <div className="swiper tp-bannerSlider">

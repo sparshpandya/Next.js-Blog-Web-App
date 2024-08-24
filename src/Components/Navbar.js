@@ -12,58 +12,18 @@ const Navbar = () => {
               <div className="row align-items-center plr_md--30 plr_sm--30 plr--10">
                 <div className="col-xl-2 col-lg-2 col-md-7 col-sm-7 col-7 p-0">
                   <div className="eblog-site-logo">
-                    <Link className="logo-light" href="/"><Image width={100} height={100} src="/images/logo/logo-04.svg" alt="eblog" /></Link>
+                    <Link className="logo-light" href="/"><Image width={300} height={0} src="/images/logo/logo.png" alt="eblog" /></Link>
                   </div>
                 </div>
                 <div className="col-xl-8 col-lg-8 d-none d-lg-block">
                   <nav>
                     <div className="eblog-home-1-menu">
                       <ul className="list-unstyled eblog-desktop-menu">
-                        <li className="menu-item eblog-has-dropdown">
-                          <Link href="/sign-up" className="eblog-dropdown-main-element active">Signup</Link>
-                        </li>
-                        <li className="menu-item eblog-has-dropdown">
-                          <Link href="/sign-in" className="eblog-dropdown-main-element active">Login</Link>
-                        </li>
-                        <li className="menu-item eblog-has-dropdown">
-                          <Link href="/" className="eblog-dropdown-main-element active">Home</Link>
-                          <ul className="eblog-submenu list-unstyled menu-home">
-                            <li className="nav-item"><Link href="index-2.html">Home 01 - Technology</Link></li>
-                            <li className="nav-item"><Link href="index-two.html">Home 02 - Life Style</Link></li>
-                            <li className="nav-item"><Link href="index-three.html">Home 03 - Travel</Link></li>
-                            <li className="nav-item"><Link href="index-four.html">Home 04 - Food</Link></li>
-                            <li className="nav-item"><Link href="index-five.html">Home 05 - Sports</Link></li>
-                          </ul>
-                        </li>
-                        <li className="menu-item eblog-has-dropdown">
-                          <Link href="#" className="eblog-dropdown-main-element">Post</Link>
-                          <ul className="eblog-submenu list-unstyled menu-pages">
-                            <li className="nav-item"><Link href="column-layout.html">Post Column</Link></li>
-                            <li className="nav-item"><Link href="column-layout-grid.html">Post Grid</Link></li>
-                            <li className="nav-item"><Link href="column-layout-right-sidebar.html">Post Right Sidebar</Link></li>
-                            <li className="nav-item"><Link href="column-layout-left-sidebar.html">Post Left Sidebar</Link></li>
-                          </ul>
-                        </li>
-                        <li className="menu-item eblog-has-dropdown">
-                          <Link href="#" className="eblog-dropdown-main-element">Post Details</Link>
-                          <ul className="eblog-submenu list-unstyled menu-pages">
-                            <li className="nav-item"><Link href="blog-details.html">Post Details</Link></li>
-                            <li className="nav-item"><Link href="blog-details-2.html">Post Details 2</Link></li>
-                            <li className="nav-item"><Link href="blog-details-3.html">Post Details 3</Link></li>
-                          </ul>
-                        </li>
-                        <li className="menu-item eblog-has-dropdown">
-                          <Link href="#" className="eblog-dropdown-main-element">Pages</Link>
-                          <ul className="eblog-submenu list-unstyled menu-pages">
-                            <li className="nav-item"><Link href="author.html">Author</Link></li>
-                            <li className="nav-item"><Link href="sign-in.html">Sign In</Link></li>
-                            <li className="nav-item"><Link href="sign-up.html">Sign Up</Link></li>
-                            <li className="nav-item"><Link href="reset-password.html">Reset Password</Link></li>
-                            <li className="nav-item"><Link href="coming-soon.html">Comming Soon</Link></li>
-                            <li className="nav-item"><Link href="error.html">Error 404</Link></li>
-                          </ul>
-                        </li>
-                        <li className="menu-item"><Link href="index-two.html" className="eblog-dropdown-main-element">Life Style</Link></li>
+                        <li className="menu-item"><Link href="/sign-up" className="eblog-dropdown-main-element">Sign Up</Link></li>
+                        <li className="menu-item"><Link href="/sign-in" className="eblog-dropdown-main-element">Sign In</Link></li>
+                        <li className="menu-item"><Link href="/" className="eblog-dropdown-main-element">Home</Link></li>
+                        <li className="menu-item"><Link href="/blog" className="eblog-dropdown-main-element">Blog</Link></li>
+                        <li className="menu-item"><Link href="/authors" className="eblog-dropdown-main-element">Authors</Link></li>
                       </ul>
                     </div>
                   </nav>
@@ -93,7 +53,7 @@ const Navbar = () => {
                       </svg>
                     </Link>
                     <div className="eblog-header-top-menu-bar menu-btn">
-                      <Link href="javascript:void(0)">
+                      <Link href="#">
                         <div className="line small"></div>
                         <div className="line big"></div>
                         <div className="line small"></div>
