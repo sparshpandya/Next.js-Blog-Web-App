@@ -1,5 +1,15 @@
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../styles/globals.css";
+import '../styles/css/style.css'
+import '../styles/css/plugins/fontawesome-5.css'
+import '../styles/css/vendor/bootstrap.min.css'
+import '../styles/css/vendor/fonts.css'
+import '../styles/css/vendor/magnific-popup.css'
+import '../styles/css/vendor/metismenu.css'
+import '../styles/css/vendor/swiper.css'
+import Head from "next/head";
+import Navbar from "@/Components/Navbar";
+import Footer from "@/Components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +21,25 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <Head>
+        <script src="/js/vendor/jquery.min.js" defer></script>
+        <script src="/js/plugins/audio.js" defer></script>
+        <script src="/js/vendor/bootstrap.min.js" defer></script>
+        <script src="/js/vendor/swiper.js" defer></script>
+        <script src="/js/vendor/metisMenu.min.js" defer></script>
+        <script src="/js/plugins/audio.js" defer></script>
+        <script src="/js/plugins/magnific-popup.js" defer></script>
+        <script src="/js/plugins/contact-form.js" defer></script>
+        <script src="/js/plugins/resize-sensor.min.js" defer></script>
+        <script src="/js/plugins/theia-sticky-sidebar.min.js" defer></script>
+
+        <script src="/js/main.js" defer></script>
+      </Head>
+      <body>
+        <Navbar />
+        <main className={inter.className}>{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
