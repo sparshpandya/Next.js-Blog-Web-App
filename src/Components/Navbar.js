@@ -1,8 +1,19 @@
+'use client';
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation';
 import React from 'react'
 
+const navLinks = [
+  { name: 'Sign Up', href: '/sign-up' },
+  { name: 'Sign In', href: '/sign-in' },
+  { name: 'Home', href: '/' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Authors', href: '/authors' }
+]
+
 const Navbar = () => {
+  const pathName = usePathname();
   return (
     <div>
       <header className="eblog-header-area header--sticky">
@@ -19,11 +30,16 @@ const Navbar = () => {
                   <nav>
                     <div className="eblog-home-1-menu">
                       <ul className="list-unstyled eblog-desktop-menu">
-                        <li className="menu-item"><Link href="/sign-up" className="eblog-dropdown-main-element">Sign Up</Link></li>
-                        <li className="menu-item"><Link href="/sign-in" className="eblog-dropdown-main-element">Sign In</Link></li>
-                        <li className="menu-item"><Link href="/" className="eblog-dropdown-main-element">Home</Link></li>
-                        <li className="menu-item"><Link href="/blog" className="eblog-dropdown-main-element">Blog</Link></li>
-                        <li className="menu-item"><Link href="/authors" className="eblog-dropdown-main-element">Authors</Link></li>
+                        {navLinks && navLinks.length > 0 ?
+                          (
+                            navLinks.map((link) => {
+                              const isActive = pathName === link.href;
+                              console.log(isActive);
+
+                              return <li className="menu-item"><Link href={link.href} key={link.name} className={isActive ? 'active' : "eblog-dropdown-main-element"}>{link.name}</Link></li>
+                            })
+                          ) : ('No Links!')
+                        }
                       </ul>
                     </div>
                   </nav>
