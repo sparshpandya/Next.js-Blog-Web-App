@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -16,21 +15,21 @@ export const metadata = {
 export default function Authors() {
     return (
         <div>
-            <section class="eblog-author-area tp-section-gap2Top">
-                <div class="container">
-                    <div class="section-inner">
-                        <div class="image-area">
+            <section className="eblog-author-area tp-section-gap2Top">
+                <div className="container">
+                    <div className="section-inner">
+                        <div className="image-area">
                             <Image src="/images/banner/author.png" width={307} height={0} alt="Author's Image" />
                         </div>
-                        <div class="content-area">
-                            <h3 class="heading-title">Sparsh Pandya</h3>
-                            <p class="desc">Hello! I am Sparsh, I am from Ahmedabad, Gujarat, India and I write blogs about current technology trends.
+                        <div className="content-area">
+                            <h3 className="heading-title">Sparsh Pandya</h3>
+                            <p className="desc">Hello! I am Sparsh, I am from Ahmedabad, Gujarat, India and I write blogs about current technology trends.
                                  I am a full-stack developer and I make web applications using technolgies like React.js
                                   and Next.js for client and server side rendering and search engine optimisation, tailwind css and
                                    next ui for UI designing and excellent user interface, Node.js, Express.js and MongoDB for
                                    API integration, data fetching and database management.</p>
-                            <p class="post">21 Posts</p>
-                            <ul class="social-wrapper">
+                            <p className="post">21 Posts</p>
+                            <ul className="social-wrapper">
                                 <li>
                                     <a href="#">
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">

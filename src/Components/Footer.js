@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-const Footer = () => {
+export default function Footer () {
   return (
     <div>
       <footer className="eblog-footer-area tp-section-top-100" id="footer">
@@ -79,5 +79,3 @@ const Footer = () => {
     </div>
   )
 }
-
-export default Footer

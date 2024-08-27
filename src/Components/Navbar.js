@@ -1,19 +1,22 @@
 'use client';
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import React from 'react'
+import { useSession, signOut } from 'next-auth/react';
 
 const navLinks = [
   { name: 'Sign Up', href: '/sign-up' },
   { name: 'Sign In', href: '/sign-in' },
   { name: 'Home', href: '/' },
   { name: 'Blog', href: '/blog' },
-  { name: 'Authors', href: '/authors' }
+  { name: 'Authors', href: '/authors' },
+  { name: 'Create Post', href: '/create-post' }
 ]
 
-const Navbar = () => {
+export default function Navbar() {
   const pathName = usePathname();
+  const { data: session } = useSession();
   return (
     <div>
       <header className="eblog-header-area header--sticky">
@@ -34,9 +37,8 @@ const Navbar = () => {
                           (
                             navLinks.map((link) => {
                               const isActive = pathName === link.href;
-                              console.log(isActive);
 
-                              return <li className="menu-item"><Link href={link.href} key={link.name} className={isActive ? 'active' : "eblog-dropdown-main-element"}>{link.name}</Link></li>
+                              return <li key={link.name} className="menu-item"><Link href={link.href} key={link.name} className={isActive ? 'active' : "eblog-dropdown-main-element"}>{link.name}</Link></li>
                             })
                           ) : ('No Links!')
                         }
@@ -68,13 +70,13 @@ const Navbar = () => {
                         <path d="M17.5 4.26852H3.6375L3.125 1.84544C3.09578 1.71317 3.01724 1.59454 2.90304 1.51021C2.78884 1.42588 2.64622 1.38118 2.5 1.38391H0V2.53775H1.9875L4.375 13.6147C4.40422 13.747 4.48276 13.8656 4.59696 13.9499C4.71116 14.0342 4.85378 14.0789 5 14.0762H16.25V12.9224H5.5125L5 10.6147H16.25C16.3945 10.6179 16.5357 10.5749 16.6497 10.4928C16.7636 10.4108 16.8432 10.2948 16.875 10.1647L18.125 4.97237C18.1459 4.88677 18.1455 4.79788 18.1236 4.71248C18.1017 4.62708 18.059 4.54741 17.9987 4.47954C17.9385 4.41167 17.8622 4.35739 17.7758 4.32082C17.6894 4.28425 17.595 4.26637 17.5 4.26852ZM15.75 9.46083H4.7625L3.8875 5.42237H16.7188L15.75 9.46083Z" fill="#1E1E1E" />
                       </svg>
                     </Link>
-                    <div className="eblog-header-top-menu-bar menu-btn">
-                      <Link href="#">
-                        <div className="line small"></div>
-                        <div className="line big"></div>
-                        <div className="line small"></div>
-                      </Link>
-                    </div>
+
+                    {session &&
+                      <div className="eblog-header-top-menu-bar menu-btn">
+                        <button onClick={() => { signOut({ callbackUrl: '/sign-in' }); }} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                          <span>Sign Out</span>
+                        </button>
+                      </div>}
                   </div>
                 </div>
               </div>
@@ -85,5 +87,3 @@ const Navbar = () => {
     </div>
   )
 }
-
-export default Navbar

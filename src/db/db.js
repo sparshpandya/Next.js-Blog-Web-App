@@ -7,14 +7,12 @@ let clientPromise;
 if (!global._mongoClientPromise) {
     // Create a new MongoClient and connect it to MongoDB
     try{
-        client = new MongoClient("mongodb+srv://sparsh:password1884@cluster0.afvsm2s.mongodb.net/", {
+        client = new MongoClient(process.env.MONGODB_CONN_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
         // Store the connection promise in the global scope
         global._mongoClientPromise = client.connect();
-        const db = client.db("Techfacts_Db");
-        await db.createCollection("Posts");
     } catch(e) {
         console.log(e);
     }

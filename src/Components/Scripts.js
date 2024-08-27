@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react'
 
-const Scripts = () => {
+export default function Scripts () {
     // getting the current path
     const pathName = usePathname();
 
@@ -13,7 +13,7 @@ const Scripts = () => {
             // creating a new script element
             const script = document.createElement('script');
             script.src = src;
-            script.async = true;
+            script.defer = true;
             document.body.appendChild(script);
 
             // cleaning up the scripts
@@ -46,5 +46,3 @@ const Scripts = () => {
         };
     }, [pathName]);
 }
-
-export default Scripts

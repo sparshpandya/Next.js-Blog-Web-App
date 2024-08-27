@@ -11,6 +11,7 @@ import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import Scripts from "@/Components/Scripts";
 import Script from "next/script";
+import SessionWrapper from "@/Components/SessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,13 +21,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-      <html lang="en">
-        <body>
+    <html lang="en">
+      <body>
+        <SessionWrapper>
           <Navbar />
           <main className={inter.className}>{children}</main>
           <Footer />
           <Scripts />
-        </body>
-      </html>
+        </SessionWrapper>
+      </body>
+    </html>
   );
 }

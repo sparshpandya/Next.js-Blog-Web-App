@@ -3,6 +3,6 @@ import React from "react";
 
 export default function Loading() {
     return (
-        <Skeleton variant="text" width="60%" height="2rem" />
+        <h1 style={{ fontSize: 'x-large' }}>Loading...</h1>
     )
 }
