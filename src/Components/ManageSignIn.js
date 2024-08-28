@@ -1,11 +1,10 @@
 "use client";
 import Link from 'next/link'
 import { useSession, signIn } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { saveUser } from '@/app/actions';
 
 export default function ManageSignIn() {
     const { data: session } = useSession();
-    console.log(session);
     
     return (
         <div>{!session ? (
@@ -40,12 +39,17 @@ export default function ManageSignIn() {
                                         </div>
 
                                         <div className="single-input-wrapper">
-                                            <button type="submit" className="subscribe-btn tp-btn btn-email"> <i className="fab fa-google"></i> Login With Google</button>
+                                            <button formNoValidate onClick={() => { signIn("google", {callbackUrl: '/'}) }} className="subscribe-btn tp-btn btn-email"> <i className="fab fa-google"></i> Login With Google</button>
                                         </div>
 
                                         <div className="single-input-wrapper">
-                                            <button type="submit" onClick={() => { signIn("github", {callbackUrl: '/'}); }} className="subscribe-btn tp-btn btn-facebook"> <i className="fab fa-github"></i> Login With Github</button>
+                                            <button formNoValidate onClick={() => { signIn("facebook", {callbackUrl: '/'}); }} className="subscribe-btn tp-btn btn-facebook"> <i className="fab fa-facebook"></i> Login With Facebook</button>
                                         </div>
+
+                                        <div className="single-input-wrapper">
+                                            <button formNoValidate onClick={() => { signIn("github", {callbackUrl: '/'}); }} className="subscribe-btn tp-btn btn-facebook"> <i className="fab fa-github"></i> Login With Github</button>
+                                        </div>
+
 
                                     </div>
                                     <div className="form-bottom-text">
@@ -57,7 +61,7 @@ export default function ManageSignIn() {
                     </div>
                 </div>
             </section>
-        ): <h1 className='text-center m-3'>User Already Logged In</h1>}
+        ): (<h1 className='text-center m-3'>User Already Logged In</h1>)}
         </div>
     )
 }

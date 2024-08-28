@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { saveUser } from "./actions";
 
 export const metadata = {
     title: 'Home | Techfacts Central',
@@ -12,7 +13,7 @@ export const metadata = {
     }
 }
 
-export default function Home() {
+export default async function Home() {
   return (
     <div>
     <section className="eblog-banner-area">

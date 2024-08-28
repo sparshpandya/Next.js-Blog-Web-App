@@ -30,6 +30,7 @@ export default function RootLayout({ children }) {
           <Scripts />
         </SessionWrapper>
       </body>
+      
     </html>
   );
 }

@@ -1,3 +1,4 @@
+import Link from "next/link"
 
 export const metadata = {
     title: 'Sign Up | Techfacts Central',
@@ -42,7 +43,7 @@ export default function Signup() {
                                                 </div>
                                         </div>
                                         <div className="form-bottom-text">
-                                            <p className="text-center">Have no account yet? <a href="/sign-in">Sign in</a> </p>
+                                            <p className="text-center">Have no account yet? <Link href="/sign-in">Sign in</Link> </p>
                                         </div>
                                 </form>
                             </div>
