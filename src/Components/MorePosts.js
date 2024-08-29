@@ -1,4 +1,4 @@
-import { fetchPosts } from "@/app/actions"
+import { fetchPosts } from "@/actions/fetchPosts";
 
 export default async function MorePosts() {
     const allPosts = await fetchPosts();

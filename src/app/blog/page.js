@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { fetchPosts } from '../actions'
 import { read } from 'fs';
 import NewsLetter from '@/Components/NewsLetter';
-import Sidebar from '@/Components/Sidebar';
+import Sidebar from '@/Components/sidebar/Sidebar';
+import { fetchPosts } from '@/actions/fetchPosts';
 
 export const metadata = {
     title: 'Blog | Techfacts Central',

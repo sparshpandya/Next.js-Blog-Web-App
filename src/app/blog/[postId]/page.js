@@ -1,11 +1,9 @@
-import { fetchPostById } from "@/app/actions";
+import { fetchPostById } from "@/actions/fetchPostsById";
 import ManageComments from "@/Components/ManageComments";
 import MorePosts from "@/Components/MorePosts";
 import NewsLetter from "@/Components/NewsLetter";
-import Sidebar from "@/Components/Sidebar";
-import SocialIcons from "@/Components/SocialIcons";
-import Image from "next/image";
-import Link from "next/link";
+import Sidebar from "@/Components/sidebar/Sidebar";
+import SocialIcons from "@/Components/sidebar/SocialIcons";
 
 export default async function ShowPostById({ params }) {
     const postId = parseInt(params.postId);

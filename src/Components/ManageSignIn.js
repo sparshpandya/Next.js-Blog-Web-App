@@ -1,11 +1,9 @@
 "use client";
 import Link from 'next/link'
 import { useSession, signIn } from 'next-auth/react';
-import { saveUser } from '@/app/actions';
 
 export default function ManageSignIn() {
     const { data: session } = useSession();
-    
     return (
         <div>{!session ? (
 
@@ -15,7 +13,7 @@ export default function ManageSignIn() {
                         <div className="row justify-content-center">
                             <div className="col-lg-4 col-md-8">
                                 <h2 className="heading-title text-center">Sign In</h2>
-                                <form action="#">
+                                <form>
                                     <div className="form-inner inner">
                                         <div className="single-input-wrapper">
                                             <input type="email" name="email" placeholder="Your email" required />
@@ -39,15 +37,15 @@ export default function ManageSignIn() {
                                         </div>
 
                                         <div className="single-input-wrapper">
-                                            <button formNoValidate onClick={() => { signIn("google", {callbackUrl: '/'}) }} className="subscribe-btn tp-btn btn-email"> <i className="fab fa-google"></i> Login With Google</button>
+                                            <button onClick={() => { signIn("google", {callbackUrl: '/'}) }} className="subscribe-btn tp-btn btn-email"> <i className="fab fa-google"></i> Login With Google</button>
                                         </div>
 
                                         <div className="single-input-wrapper">
-                                            <button formNoValidate onClick={() => { signIn("facebook", {callbackUrl: '/'}); }} className="subscribe-btn tp-btn btn-facebook"> <i className="fab fa-facebook"></i> Login With Facebook</button>
+                                            <button onClick={() => { signIn("facebook", {callbackUrl: '/'}); }} className="subscribe-btn tp-btn btn-facebook"> <i className="fab fa-facebook"></i> Login With Facebook</button>
                                         </div>
 
                                         <div className="single-input-wrapper">
-                                            <button formNoValidate onClick={() => { signIn("github", {callbackUrl: '/'}); }} className="subscribe-btn tp-btn btn-facebook"> <i className="fab fa-github"></i> Login With Github</button>
+                                            <button onClick={() => { signIn("github", {callbackUrl: '/'}); }} className="subscribe-btn tp-btn btn-facebook"> <i className="fab fa-github"></i> Login With Github</button>
                                         </div>
 
 

@@ -2,7 +2,7 @@ import FeaturedPosts from './FeaturedPosts';
 import PopularPosts from './PopularPosts';
 import Categories from './Categories';
 import SocialIcons from './SocialIcons';
-import { fetchPosts } from '@/app/actions';
+import { fetchPosts } from '@/actions/fetchPosts';
 export default async function Sidebar() {
     const posts = await fetchPosts();
     return (

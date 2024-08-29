@@ -1,7 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-import { saveUser } from "./actions";
-
 export const metadata = {
     title: 'Home | Techfacts Central',
     description: 'Explore the latest news about technology. Be it gadgets, artificial intelligence or current technology trends, we will keep you updated with our blog section changing everyday.',

@@ -5,13 +5,9 @@ import { redirect, usePathname } from 'next/navigation';
 import React from 'react'
 import { useSession, signOut } from 'next-auth/react';
 
-const routes = [
+const protectedRoutes = [
   { name: 'Sign Up', href: '/sign-up' },
   { name: 'Sign In', href: '/sign-in' },
-  { name: 'Home', href: '/' }
-]
-
-const protectedRoutes = [
   { name: 'Home', href: '/' },
   { name: 'Blog', href: '/blog' },
   { name: 'Authors', href: '/authors' },
@@ -21,8 +17,7 @@ const protectedRoutes = [
 export default function Navbar() {
   const pathName = usePathname();
   const { data: session } = useSession();
-  console.log(session);
-  
+
 
   return (
     <div>
@@ -40,17 +35,13 @@ export default function Navbar() {
                   <nav>
                     <div className="eblog-home-1-menu">
                       <ul className="list-unstyled eblog-desktop-menu">
-                        {session ? (
+                        {
                           protectedRoutes && protectedRoutes.length > 0 &&
                           protectedRoutes.map(link => {
                             const isActive = link.href === pathName;
                             return <li key={link.name} className="menu-item"><Link href={link.href} key={link.name} className={isActive ? 'active' : "eblog-dropdown-main-element"}>{link.name}</Link></li>
                           })
-                        ) : routes && routes.length > 0 &&
-                        routes.map(link => {
-                          const isActive = link.href === pathName;
-                          return <li key={link.name} className="menu-item"><Link href={link.href} key={link.name} className={isActive ? 'active' : "eblog-dropdown-main-element"}>{link.name}</Link></li>
-                        })}
+                        }
                       </ul>
                     </div>
                   </nav>
@@ -82,7 +73,7 @@ export default function Navbar() {
 
                     {session &&
                       <div className="eblog-header-top-menu-bar menu-btn">
-                        <img width={50} height={50} src={session.user.image} /> - {session.user.name}
+                        <img width={50} height={50} src={session.user.image} alt='user image' /> - {session.user.name}
                         <p>Email: {session.user.email}</p>
                         <button onClick={() => { signOut({ callbackUrl: '/sign-in' }); }} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                           <span>Sign Out</span>

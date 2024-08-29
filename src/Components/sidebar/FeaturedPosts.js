@@ -1,4 +1,3 @@
-import { fetchPosts } from "@/app/actions";
 import Link from "next/link";
 
 export default function FeaturedPosts({ posts }) {

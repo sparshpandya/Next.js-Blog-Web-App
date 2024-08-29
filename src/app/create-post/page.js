@@ -1,6 +1,6 @@
 "use client";
+import { savePosts } from "@/actions/savePosts";
 import { useRef } from "react";
-import { submitPostData } from "../actions";
 
 export default function CreatePost() {
     const ref = useRef();
@@ -14,7 +14,7 @@ export default function CreatePost() {
                         <div className="row justify-content-center">
                             <div className="col-lg-4 col-md-8">
                                 <h2 className="heading-title text-center">Create A Blog Post</h2>
-                                <form ref={ref} action={(e) => { submitPostData(e); ref.current.reset(); }}>
+                                <form ref={ref} action={(e) => { savePosts(e); ref.current.reset(); }}>
                                     <div className="form-inner inner" >
                                         <div className="single-input-wrapper">
                                             <select name="category" required>

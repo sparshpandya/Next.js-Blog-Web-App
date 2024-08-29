@@ -7,10 +7,9 @@ import '../styles/css/vendor/fonts.css'
 import '../styles/css/vendor/magnific-popup.css'
 import '../styles/css/vendor/metismenu.css'
 import '../styles/css/vendor/swiper.css'
-import Navbar from "@/Components/Navbar";
-import Footer from "@/Components/Footer";
-import Scripts from "@/Components/Scripts";
-import Script from "next/script";
+import Navbar from "@/Components/layout/Navbar";
+import Footer from "@/Components/layout/Footer";
+import Scripts from "@/Components/layout/Scripts";
 import SessionWrapper from "@/Components/SessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });

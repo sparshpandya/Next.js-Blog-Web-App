@@ -1,10 +1,8 @@
 "use server";
-
 import clientPromise from "@/db/db";
 import { writeFile } from "fs/promises";
 import { join } from "path";
-
-export const submitPostData = async (e) => {
+export const savePosts = async (e) => {
     const client = await clientPromise;
     const db = await client.db("Techfacts_Db");
     const posts = await db.collection("Posts");
@@ -56,61 +54,6 @@ export const submitPostData = async (e) => {
             }
         } catch (e) {
             console.error(e);
-        }
-    }
-}
-
-export const fetchPosts = async () => {
-    const client = await clientPromise;
-    const db = await client.db("Techfacts_Db");
-    const posts = await db.collection("Posts");
-
-    if (posts) {
-        // returning all the posts from db
-        const allPosts = await posts.find({}).toArray();
-        return allPosts;
-    } else {
-        return "No Posts For Now, Check Again Later!!";
-    }
-}
-
-export const fetchPostById = async (postId) => {
-    const client = await clientPromise;
-    const db = await client.db("Techfacts_Db");
-    const posts = await db.collection("Posts");
-
-    if (posts) {
-        // returning a single post by its id
-        const selectedPost = await posts.findOne({ id: postId });
-
-        return selectedPost;
-    } else {
-        return "Post Not Found!";
-    }
-}
-
-export const saveUser = async (session) => {
-    
-    const client = await clientPromise;
-    const db = await client.db("Techfacts_Db");
-    const users = await db.collection("Users");
-    // creating collections if not exists
-    if (!users) {
-        await db.createCollection("Posts");
-    } else {
-        // saving user to the db if the session has value
-        try {
-            if (session) {
-                const sessionEmail = session.email;
-                const userEmail = await users.findOne({ email: sessionEmail });
-                if(!userEmail) {
-                    await users.insertOne(session);
-                }
-            }
-            return true;
-        } catch (e) {
-            console.error(e);
-            return false;
         }
     }
 }

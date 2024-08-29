@@ -2,17 +2,25 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
-import { saveUser } from "@/app/actions"; // Assuming saveUser is defined in this module
+import { saveUser } from "@/actions/saveUser";
 
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     // user object returned by the provider
-    async signIn({ user }) {
-
-      try {
+    async signIn({ user, account, profile }) {
+      console.log("user", user);
+      
+      console.log("...............................");
+      
+      console.log("user", account);
+      console.log("...............................");
+      console.log("user", profile);
+      console.log("...............................");
+      
+      try { 
         // saving the user in the database
-        const saveUserData = await saveUser(user);
+        const saveUserData = await saveUser(user, account.provider);
         if (saveUserData) {
           return true;
         }
