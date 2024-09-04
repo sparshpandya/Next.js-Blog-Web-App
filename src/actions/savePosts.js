@@ -42,13 +42,13 @@ export const savePosts = async (e) => {
                 if (postId) {
                     await posts.insertOne({
                         id: postId,
-                        name: e.get("name"),
                         title: e.get("title"),
-                        category: e.get("category"),
+                        categoryId: parseInt(e.get("category")),
                         readingTime: e.get("readingTime"),
-                        date: e.get("date"),
+                        createdAt: e.get("date"),
                         image: image.name,
-                        description: e.get("description")
+                        description: e.get("description"),
+                        userId: e.get("userId")
                     });
                 }
             }

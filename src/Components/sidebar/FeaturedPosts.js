@@ -21,7 +21,7 @@ export default function FeaturedPosts({ posts }) {
                         return (<>
                             <div className="image-area">
                                 <Link href="#">
-                                    <img src={`/images/blog/${image}`} alt={`${name} Post Image`} />
+                                    <img src={`/images/blog/${image}`} alt={` Post Image`} />
                                 </Link>
                             </div>
                             <div className="blog-content">
@@ -49,7 +49,7 @@ export default function FeaturedPosts({ posts }) {
                                     </li>
                                 </ul>
                                 <h5 className="heading-title"><Link className="title-animation" href="#">{title} - {category}</Link></h5>
-                                <p className="author"><em>by</em> {name.toUpperCase()}</p>
+                                <p className="author"><em>by</em> {name || ''}</p>
                                 <Link href="#" className="text-btn color-two">Read More</Link>
                             </div>
                         </>)

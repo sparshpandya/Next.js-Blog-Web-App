@@ -1,4 +1,5 @@
 import signUp from "@/actions/signUp";
+import Form from "@/Components/Form";
 import Link from "next/link"
 
 export const metadata = {
@@ -21,7 +22,7 @@ export default function Signup() {
                         <div className="row justify-content-center">
                             <div className="col-lg-4 col-md-8">
                                 <h2 className="heading-title text-center">Sign Up</h2>
-                                <form action={signUp}>
+                                <Form action={signUp}>
                                     <div className="form-inner inner" >
                                         <div className="single-input-wrapper">
                                             <input type="text" name="name" placeholder="Full name" required />
@@ -46,7 +47,7 @@ export default function Signup() {
                                         <div className="form-bottom-text">
                                             <p className="text-center">Have no account yet? <Link href="/sign-in">Sign in</Link> </p>
                                         </div>
-                                </form>
+                                </Form>
                             </div>
                         </div>
                     </div>

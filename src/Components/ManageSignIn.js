@@ -1,6 +1,8 @@
 "use client";
 import Link from 'next/link'
 import { useSession, signIn } from 'next-auth/react';
+import login from '@/actions/login';
+import Form from './Form';
 
 export default function ManageSignIn() {
     const { data: session } = useSession();
@@ -13,7 +15,8 @@ export default function ManageSignIn() {
                         <div className="row justify-content-center">
                             <div className="col-lg-4 col-md-8">
                                 <h2 className="heading-title text-center">Sign In</h2>
-                                <form>
+                                <h4>{login || ''}</h4>
+                                <Form action={login}>
                                     <div className="form-inner inner">
                                         <div className="single-input-wrapper">
                                             <input type="email" name="email" placeholder="Your email" required />
@@ -53,7 +56,7 @@ export default function ManageSignIn() {
                                     <div className="form-bottom-text">
                                         <p className="text-center">Have no account yet? <Link href="/sign-up">Sign up</Link> </p>
                                     </div>
-                                </form>
+                                </Form>
                             </div>
                         </div>
                     </div>

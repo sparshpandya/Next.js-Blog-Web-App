@@ -1,4 +1,7 @@
+import { fetchCategoryById } from "@/actions/fetchCategories";
 import { fetchPosts } from "@/actions/fetchPosts";
+import { fetchUserById } from "@/actions/fetchUser";
+import Link from "next/link";
 
 export default async function MorePosts() {
     const allPosts = await fetchPosts();
@@ -8,28 +11,32 @@ export default async function MorePosts() {
                 <h3 class="section-title text-center">You Might Like This</h3>
                 <div class="section-inner">
                     <div class="row g-5">
-                        {allPosts && allPosts.length > 0 ? allPosts.map(post => {
+                        {allPosts && allPosts.length > 0 ? allPosts.map(async post => {
                             const {
                                 id,
-                                name,
                                 title,
-                                category,
+                                categoryId,
                                 readingTime,
-                                date,
+                                createdAt,
                                 image,
-                                description
+                                description,
+                                userId
                             } = post;
+
+                            const user = await fetchUserById(userId);
+                            const category = await fetchCategoryById(categoryId);
+                            const { name } = user;
                             return (
                                 <div class="col-xl-3 col-lg-6 col-md-6">
                                     <div class="eblog-featured-news style-two small">
                                         <div class="image-area">
-                                            <a href={`/blog/${id}`}><img src={`/images/blog/${image}`} alt={`${category} post image`} /></a>
+                                            <Link href={`/blog/${id}`}><img src={`/images/blog/${image}`} alt={`${category} post image`} /></Link>
                                         </div>
                                         <div class="blog-content text-left">
                                             <p class="tag mb--15">{category}</p>
                                             <h4 class="heading-title ml--0 mb--10 text-start"><a class="title-animation text-center" href="#">{title}</a></h4>
                                             <ul class="blog-meta justify-content-start m--0">
-                                                <li class="author"><span>BY</span>{name.toUpperCase()} - {date} </li>
+                                                <li class="author"><span>BY</span>{name.toUpperCase()} - {createdAt} </li>
                                             </ul>
                                         </div>
                                     </div>

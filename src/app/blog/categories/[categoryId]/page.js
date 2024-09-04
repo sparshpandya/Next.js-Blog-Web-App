@@ -1,28 +1,18 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { read } from 'fs';
-import NewsLetter from '@/Components/NewsLetter';
-import Sidebar from '@/Components/sidebar/Sidebar';
-import { fetchPosts } from '@/actions/fetchPosts';
-import { fetchUserById } from '@/actions/fetchUser';
-import { fetchCategoryById } from '@/actions/fetchCategories';
+import { fetchCategoryById } from "@/actions/fetchCategories";
+import { fetchPostsByCategoryId } from "@/actions/fetchPosts";
+import { fetchUserById } from "@/actions/fetchUser";
+import NewsLetter from "@/Components/NewsLetter";
+import Sidebar from "@/Components/sidebar/Sidebar";
+import Link from "next/link";
 
-export const metadata = {
-    title: 'Blog | Techfacts Central',
-    description: 'Explore hot topics, blogs related to gadgets, artificial intelligence and current technology trends - techfacts central.',
-    keywords: 'techfacts central blogs, latest technology trends, technology posts',
-    author: 'Sparsh Pandya',
-    openGraph: {
-        title: 'Blog | Techfacts Central',
-        description: 'Explore our blog page and get engaged with new blogs everyday - techfacts central.'
-    }
-}
-
-export default async function Blog() {
-    const allPosts = await fetchPosts();
-
+export default async function ShowPostsByCategory({ params }) {
+    const categoryId = parseInt(params.categoryId);
+    const category = await fetchCategoryById(categoryId);
+    const allPosts = await fetchPostsByCategoryId(categoryId);
+    
     return (
         <>
+            <h1 className="text-center">Posts From {category}</h1>
             <section className="eblog-featured-post-area area-2 tp-section-gap">
                 <div className="container">
                     <div className="section-inner">
@@ -47,9 +37,8 @@ export default async function Blog() {
                                                                     userId
                                                                 } = post;
                                                                 const user = await fetchUserById(userId);
-                                                                const category = await fetchCategoryById(categoryId);
                                                                 const { name } = user;
-                                                                
+
                                                                 return (
                                                                     <>
                                                                         <div className="image-area">

@@ -10,14 +10,14 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(req, res) {
     try {
         // getting the user email
-        const { email } = await req.json();
+        const { email, token } = await req.json();
         
         // sending the email
       const { data, error } = await resend.emails.send({
         from: 'Acme <onboarding@resend.dev>',
         to: [email],
         subject: 'test email',
-        react: NotionMagicLinkEmail(),
+        react: NotionMagicLinkEmail(token),
       });
   
       if (error) {
@@ -25,7 +25,7 @@ export async function POST(req, res) {
       }
       
     //   returning the success message
-      return "Verification Email Sent Successfully!!";
+      return Response.json("Verification Email Sent Successfully!!", { status: 201 });
     } catch (error) {
       return Response.json({ error }, { status: 500 });
     }

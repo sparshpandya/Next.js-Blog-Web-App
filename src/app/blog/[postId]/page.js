@@ -1,4 +1,6 @@
-import { fetchPostById } from "@/actions/fetchPostsById";
+import { fetchCategoryById } from "@/actions/fetchCategories";
+import { fetchPostById } from "@/actions/fetchPosts";
+import { fetchUserById } from "@/actions/fetchUser";
 import ManageComments from "@/Components/ManageComments";
 import MorePosts from "@/Components/MorePosts";
 import NewsLetter from "@/Components/NewsLetter";
@@ -10,15 +12,20 @@ export default async function ShowPostById({ params }) {
 
     const selectedPost = await fetchPostById(postId);
     const {
-        id,
-        name,
         title,
-        category,
+        categoryId,
         readingTime,
-        date,
+        createdAt,
         image,
-        description
+        description,
+        userId
     } = selectedPost;
+
+    const user = await fetchUserById(userId);
+    const category = await fetchCategoryById(categoryId);
+    const { id, name } = user;
+    console.log(name);
+    
     return (
         <>
             <section class="eblog-featured-post-area area-2 tp-section-gapTop">
@@ -35,7 +42,8 @@ export default async function ShowPostById({ params }) {
                                         </div>
                                         <div class="blog-content-area">
                                             <ul class="blog-meta">
-                                                <li class="author"><span>BY</span>{name.toUpperCase()} - {date} </li>
+                                                <li class="author"><span>BY</span>{name.toUpperCase()} - {createdAt} </li>
+                                                <li class="category"><span>CATEGORY - </span>{category.toUpperCase()} </li>
                                                 <li>
                                                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <g clip-path="url(#clip0_4238_1230)">
@@ -47,7 +55,7 @@ export default async function ShowPostById({ params }) {
                                                             </clipPath>
                                                         </defs>
                                                     </svg>
-                                                    {readingTime}
+                                                    {`${readingTime} Minute(s) Read`}
                                                 </li>
                                                 <li>
                                                     <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +120,7 @@ export default async function ShowPostById({ params }) {
                                                 </div>
                                             </div>
                                             {/* Manage Comments Component */}
-                                            <ManageComments />
+                                            <ManageComments userId={id} postId={postId} />
                                         </div>
                                     </div>
                                 </div>

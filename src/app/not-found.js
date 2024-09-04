@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 export default function PageNotFound () {
   return (
@@ -11,7 +12,7 @@ export default function PageNotFound () {
                 </div>
                 <h2 className="heading-title text-center">Page not found!</h2>
                 <p className="desc text-center">Sorry, the page you seems looking for, has been moved, redirected or removed permanently.</p>
-                <a className="tp-btn btn-secondary" href="/">Go Back Home</a>
+                <Link className="tp-btn btn-secondary" href="/">Go Back Home</Link>
                 <div className="error-bottom-text">
                   <p className="text-center">Why not try to search again? <a href="#">Search now</a></p>
                 </div>

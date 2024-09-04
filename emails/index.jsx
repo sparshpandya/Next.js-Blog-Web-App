@@ -11,74 +11,75 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "";
+const baseUrl = process.env.BASE_URL;
 
-export const NotionMagicLinkEmail = () => (
-  <Html>
-    <Head />
-    <Preview>Log in with this magic link</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Heading style={h1}>Login</Heading>
-        <Link
-          href="http://localhost:3000/sign-in"
-          target="_blank"
-          style={{
-            ...link,
-            display: "block",
-            marginBottom: "16px",
-          }}
-        >
-          Click here to log in with this magic link
-        </Link>
-        <Text style={{ ...text, marginBottom: "14px" }}>
-          Or, copy and paste this temporary login code:
-        </Text>
-        <Text
-          style={{
-            ...text,
-            color: "#ababab",
-            marginTop: "14px",
-            marginBottom: "16px",
-          }}
-        >
-          If you didn&apos;t try to login, you can safely ignore this email.
-        </Text>
-        <Text
-          style={{
-            ...text,
-            color: "#ababab",
-            marginTop: "12px",
-            marginBottom: "38px",
-          }}
-        >
-          Hint: You can set a permanent password in Settings & members → My
-          account.
-        </Text>
-        <Img
-          src={`${baseUrl}/static/notion-logo.png`}
-          width="32"
-          height="32"
-          alt="Notion's Logo"
-        />
-        <Text style={footer}>
+export const NotionMagicLinkEmail = (token) => {
+  const verificationLink = `${baseUrl}/user-verify/${token}`;
+  return (
+    <Html>
+      <Head />
+      <Preview>Log in with this magic link</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Heading style={h1}>Login</Heading>
           <Link
-            href="https://notion.so"
+            href={verificationLink}
             target="_blank"
-            style={{ ...link, color: "#898989" }}
+            style={{
+              ...link,
+              display: "block",
+              marginBottom: "16px",
+            }}
           >
-            Notion.so
+            Click here to log in with this magic link
           </Link>
-          , the all-in-one-workspace
-          <br />
-          for your notes, tasks, wikis, and databases.
-        </Text>
-      </Container>
-    </Body>
-  </Html>
-);
+          <Text style={{ ...text, marginBottom: "14px" }}>
+            Or, copy and paste this temporary login code:
+          </Text>
+          <Text
+            style={{
+              ...text,
+              color: "#ababab",
+              marginTop: "14px",
+              marginBottom: "16px",
+            }}
+          >
+            If you didn&apos;t try to login, you can safely ignore this email.
+          </Text>
+          <Text
+            style={{
+              ...text,
+              color: "#ababab",
+              marginTop: "12px",
+              marginBottom: "38px",
+            }}
+          >
+            Hint: You can set a permanent password in Settings & members → My
+            account.
+          </Text>
+          <Img
+            src={`${baseUrl}/static/notion-logo.png`}
+            width="32"
+            height="32"
+            alt="Notion's Logo"
+          />
+          <Text style={footer}>
+            <Link
+              href="https://notion.so"
+              target="_blank"
+              style={{ ...link, color: "#898989" }}
+            >
+              Notion.so
+            </Link>
+            , the all-in-one-workspace
+            <br />
+            for your notes, tasks, wikis, and databases.
+          </Text>
+        </Container>
+      </Body>
+    </Html>
+  )
+};
 
 NotionMagicLinkEmail.PreviewProps = {
   loginCode: "sparo-ndigo-amurt-secan",

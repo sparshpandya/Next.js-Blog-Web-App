@@ -1,6 +1,8 @@
 "use server";
 import clientPromise from "@/db/db";
 import generateId from "./generateId";
+import bcrypt, { hash } from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export default async function signUp(e) {
     const client = await clientPromise;
@@ -11,10 +13,14 @@ export default async function signUp(e) {
         db.createCollection("Users");
     } else {
         const email = e.get("email");
+        const password = e.get("password");
         const userEmail = await users.findOne({ email: email });
         const userId = await generateId();
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
         // saving user data if email is not found
-        if (!userEmail) {
+        if (!userEmail && hashedPassword) {
             await users.insertOne({
                 id: userId,
                 providers: [{
@@ -23,23 +29,33 @@ export default async function signUp(e) {
                 }],
                 name: e.get("name"),
                 email: email,
-                password: e.get("password"),
+                password: hashedPassword,
                 isVerified: false
             });
 
+            // generating json web token to encrypt the user id
+            const sercretKey = process.env.USER_VERIFICATION_SECRET;
+            const expiresIn = '1h';
+
+            const token = jwt.sign(
+                { userId }, 
+                sercretKey, 
+                { expiresIn } 
+            );
+
             // sending verification email
-            // const response = await fetch("http://localhost:3000/api/mail", {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify({ email })
-            // });
+            const response = await fetch("http://localhost:3000/api/mail", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, token })
+            });
 
-            // const result = await response.json();
-            // console.log(result);
+            const result = await response.json();
+            console.log(result);
 
-            // return result;
+            return result;
         } else {
             // if email is found, checking whether the providers array contains the data
             const providerDoc = await userEmail.providers.filter(p => {
@@ -55,9 +71,12 @@ export default async function signUp(e) {
                         }
                     },
                     $set: {
-                        password: e.get("password")
+                        password: hashedPassword
                     }
                 })
+            } else {
+                console.log("account exists");
+                return "Account Already Exists, please log in!";
             }
         }
     }

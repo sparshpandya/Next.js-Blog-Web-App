@@ -11,6 +11,7 @@ import Navbar from "@/Components/layout/Navbar";
 import Footer from "@/Components/layout/Footer";
 import Scripts from "@/Components/layout/Scripts";
 import SessionWrapper from "@/Components/SessionProvider";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,13 +24,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <SessionWrapper>
-          <Navbar />
-          <main className={inter.className}>{children}</main>
-          <Footer />
+            <Navbar />
+            <main className={inter.className}>{children}</main>
+            <Footer />
           <Scripts />
+          <ToastContainer />
         </SessionWrapper>
       </body>
-      
+
     </html>
   );
 }
