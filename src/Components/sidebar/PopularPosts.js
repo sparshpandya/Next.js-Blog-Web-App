@@ -1,3 +1,4 @@
+import { fetchCategoryById } from "@/actions/fetchCategories";
 import Link from "next/link";
 
 export default function PopularPosts({ posts }) {
@@ -8,21 +9,23 @@ export default function PopularPosts({ posts }) {
             <div className="small-post">
                 <div className="eblog-post-list-style">
                     {posts && posts.length > 0 ? (
-                        posts.map(post => {
+                        posts.map(async post => {
                             const {
                                 id,
                                 name,
                                 title,
-                                category,
+                                categoryId,
                                 readingTime,
                                 date,
                                 image,
                                 description
                             } = post;
 
+                            const category = await fetchCategoryById(categoryId);
+
                             return (<>
                                 <div className="image-area">
-                                    <Link href="#"><img src={`/images/blog/${image}`} alt={`${name} Post Image`} /></Link>
+                                    <Link href="#"><img src={image} alt={`${name} Post Image`} /></Link>
                                 </div>
                                 <div className="blog-content">
                                     <h4 className="heading-title"><Link className="title-animation" href="#">{title} - {category}</Link></h4>
@@ -38,7 +41,7 @@ export default function PopularPosts({ posts }) {
                                                     </clipPath>
                                                 </defs>
                                             </svg>
-                                            {readingTime}
+                                            {`${readingTime} Minute(s) Read`}
                                         </li>
                                     </ul>
                                 </div>

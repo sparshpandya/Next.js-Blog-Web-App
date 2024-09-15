@@ -1,3 +1,5 @@
+import { fetchCategoryById } from "@/actions/fetchCategories";
+import { fetchUserById } from "@/actions/fetchUser";
 import Link from "next/link";
 
 export default function FeaturedPosts({ posts }) {
@@ -6,22 +8,26 @@ export default function FeaturedPosts({ posts }) {
             <p className="title">Feature Post</p>
             <div className="featured-post sidebar">
                 {posts && posts.length > 0 ? (
-                    posts.map(post => {
+                    posts.map(async post => {
                         const {
                             id,
                             name,
                             title,
-                            category,
+                            categoryId,
                             readingTime,
                             date,
                             image,
-                            description
+                            description,
+                            userId
                         } = post;
+
+                        const category = await fetchCategoryById(categoryId);
+                        const user = await fetchUserById(userId);
 
                         return (<>
                             <div className="image-area">
                                 <Link href="#">
-                                    <img src={`/images/blog/${image}`} alt={` Post Image`} />
+                                    <img src={image} alt={` Post Image`} />
                                 </Link>
                             </div>
                             <div className="blog-content">
@@ -37,7 +43,7 @@ export default function FeaturedPosts({ posts }) {
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                        {readingTime}
+                                        {`${readingTime} Minute(s) Read`}
                                     </li>
                                     <li>
                                         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,7 +55,7 @@ export default function FeaturedPosts({ posts }) {
                                     </li>
                                 </ul>
                                 <h5 className="heading-title"><Link className="title-animation" href="#">{title} - {category}</Link></h5>
-                                <p className="author"><em>by</em> {name || ''}</p>
+                                <p className="author"><em>by</em> {user.name}</p>
                                 <Link href="#" className="text-btn color-two">Read More</Link>
                             </div>
                         </>)

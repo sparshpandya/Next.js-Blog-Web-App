@@ -22,7 +22,7 @@ export default async function Home() {
                                 <div className="banner-content blog-content">
                                     <p className="sub-title">Freedom</p>
                                     <h2 className="heading-title"><a className="title-animation" href="#">Apple needs a $250 iPhone to boost <br />
-                                        sales but it doesn't want to make</a></h2>
+                                        sales but it doesn&apos;t want to make</a></h2>
                                     <ul className="blog-meta">
                                         <li className="author"><span>BY</span>Elon Mask - 14 Jan, 2024 </li>
                                         <li>
@@ -92,7 +92,7 @@ export default async function Home() {
                                 <div className="banner-content blog-content">
                                     <p className="sub-title">Freedom</p>
                                     <h2 className="heading-title"><a className="title-animation" href="#">Apple needs a $250 iPhone to boost <br />
-                                        sales but it doesn't want to make</a></h2>
+                                        sales but it doesn&apos;t want to make</a></h2>
                                     <ul className="blog-meta">
                                         <li className="author"><span>BY</span>Elon Mask - 14 Jan, 2024 </li>
                                         <li>

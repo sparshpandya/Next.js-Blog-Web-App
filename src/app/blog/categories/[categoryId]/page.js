@@ -42,7 +42,7 @@ export default async function ShowPostsByCategory({ params }) {
                                                                 return (
                                                                     <>
                                                                         <div className="image-area">
-                                                                            <Link href={`/blog/${id}`}><img height={0} width={983} src={`/images/blog/${image}`} alt={`${name} Post Image` || ''} /></Link>
+                                                                            <Link href={`/blog/${id}`}><img height={0} width={983} src={image} alt={`${name} Post Image` || ''} /></Link>
                                                                             <p className="tag">{category}</p>
                                                                         </div>
                                                                         <div className="blog-content">

@@ -7,4 +7,4 @@ export default function SessionWrapper({ children }) {
             {children}
         </SessionProvider>
     )
-}
+}   

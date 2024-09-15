@@ -1,11 +1,23 @@
 import { fetchCategoryById } from "@/actions/fetchCategories";
 import { fetchPostById } from "@/actions/fetchPosts";
 import { fetchUserById } from "@/actions/fetchUser";
+import Comments from "@/Components/Comments";
 import ManageComments from "@/Components/ManageComments";
 import MorePosts from "@/Components/MorePosts";
 import NewsLetter from "@/Components/NewsLetter";
 import Sidebar from "@/Components/sidebar/Sidebar";
 import SocialIcons from "@/Components/sidebar/SocialIcons";
+
+export const metadata = {
+    title: 'Full Blog | Techfacts Central',
+    description: 'Read blogs techfacts, blog author information techfacts, comment on blogs techfacts, blogs related to gadgets, artificial intelligence and current technology trends - techfacts central.',
+    keywords: 'techfacts central blogs, blog authors, latest technology trends, technology posts',
+    author: 'Sparsh Pandya',
+    openGraph: {
+        title: 'FUll Blog | Techfacts Central',
+        description: 'Explore our full blog page and get engaged with the author and comment on the blogs - techfacts central.'
+    }
+}
 
 export default async function ShowPostById({ params }) {
     const postId = parseInt(params.postId);
@@ -37,7 +49,7 @@ export default async function ShowPostById({ params }) {
                                     <div class="eblog-hero-banner">
                                         <div class="image-area">
                                             <a href="#">
-                                                <img src={`/images/blog/${image}`} alt="" />
+                                                <img src={image} alt="" />
                                             </a>
                                         </div>
                                         <div class="blog-content-area">
@@ -82,7 +94,7 @@ export default async function ShowPostById({ params }) {
                                         <div class="image-area mb--30">
                                             <img src="assets/images/blog/154.jpg" alt="" />
                                         </div>
-                                        <h3 class="heading-title two">Three ways we'll turn vision into reality.</h3>
+                                        <h3 class="heading-title two">Three ways we&apos;ll turn vision into reality.</h3>
                                         <p class="desc">Consecrate means to make something sacred or holy. We do this by giving priority to spiritual things over physical things. The most dangerous Christian is the one who settles for living a “good enough” faith. There is nothing the devil loves more than a Christian who stops living a life of purpose. Whether you have been following Jesus for decades, or you just began your relationship with Him yesterday, we all can take a next step toward Jesus.</p>
                                         <p class="desc">Let this be the year where we consecrate ourselves for the Kingdom of God through prayer and studying God’s word. We are going to be a church that prays first in all things. We are going to be a church that doesn’t just try to get through the Bible in a year, but a church that gets the Bible through us this year.</p>
                                         <p class="desc last">As we take steps of faith this year, it’s going to require a lot of courage. We believe God is going to ask us to step out of our comfort zone to make an impact this year. It may be scary serving, loving, and leading others but that is a good place to be. God promises to be with us through the highs and lows of life. Let’s take steps of courage as a church this year!</p>
@@ -119,6 +131,8 @@ export default async function ShowPostById({ params }) {
                                                     </div>
                                                 </div>
                                             </div>
+                                            {/* Show Comments Component */}
+                                            <Comments postId={postId} />
                                             {/* Manage Comments Component */}
                                             <ManageComments userId={id} postId={postId} />
                                         </div>

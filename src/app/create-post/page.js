@@ -1,10 +1,24 @@
 import { fetchUserByEmail } from "@/actions/fetchUser";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
-import { savePosts } from "@/actions/savePosts";
+import { GetImageUrl, savePosts } from "@/actions/savePosts";
 import { fetchCategories } from "@/actions/fetchCategories";
+import { CldUploadButton } from "next-cloudinary";
 import Link from "next/link";
 import Form from "@/Components/Form";
+import UploadImages from "@/Components/UploadImages";
+
+
+export const metadata = {
+    title: 'Create Post | Techfacts Central',
+    description: 'Create post on our blog to showcase your knowledge about tech - techfacts central.',
+    keywords: 'techfacts central, create post techfacts central, share your knowledge',
+    author: 'Sparsh Pandya',
+    openGraph: {
+        title: 'Create Post | Techfacts Central',
+        description: 'Create post on techfacts central.'
+    }
+}
 
 export default async function CreatePost() {
     const categories = await fetchCategories();
@@ -27,10 +41,10 @@ export default async function CreatePost() {
                                             <div className="single-input-wrapper">
                                                 <select name="category" required>
                                                     {categories && categories.length > 0 ?
-                                                        categories.map(category => {
+                                                        categories.map((category, index) => {
                                                             const { id, name } = category;
                                                             return (
-                                                                <option value={id}>{name}</option>
+                                                                <option key={index} value={id}>{name}</option>
                                                             )
                                                         }) : 'No Categories Found!'
                                                     }
@@ -49,7 +63,7 @@ export default async function CreatePost() {
                                                 <input type="date" name="date" defaultValue={today} placeholder="Post Date" required />
                                             </div>
                                             <div className="single-input-wrapper">
-                                                <input type="file" accept="image/*" name="image" required />
+                                                <UploadImages />
                                             </div>
                                             <div className="single-input-wrapper">
                                                 <textarea name="description" placeholder="Post Description - Write in paragraphs" required />
@@ -68,13 +82,7 @@ export default async function CreatePost() {
                         </div>
                     </div>
                 </section>
-            ) : (
-                <>
-                    <h1 className="text-center">Please Sign Up/In to create a post on our app</h1>
-                    <Link className="text-center" href='sign-up'>Sign Up</Link>
-                    <Link className="text-center" href='sign-in'>Sign In</Link>
-                </>
-            )}
+            ) : ((<div><h3 className="text-center">Please <Link href='/sign-up'>Sign Up</Link>/<Link href='/sign-in'>Sign In</Link> to create posts!!</h3></div>))}
         </div>
     )
 }

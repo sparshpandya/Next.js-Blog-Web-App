@@ -72,7 +72,7 @@ export default async function Footer() {
                 </div>
                 <div className="eblog-footer-copyright-area">
                     <div className="copyright-content">
-                        <p className="title">2024 © All rights reserved.</p>
+                        <p className="title">Techfacts Central 2024 © All rights reserved.</p>
                     </div>
                 </div>
             </footer>

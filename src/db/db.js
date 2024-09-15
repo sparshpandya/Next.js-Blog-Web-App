@@ -1,4 +1,3 @@
-import React from "react";
 import { MongoClient } from "mongodb";
 
 let client;

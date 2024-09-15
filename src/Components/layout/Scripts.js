@@ -1,48 +1,67 @@
 "use client";
 
 import { usePathname } from 'next/navigation';
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 
-export default function Scripts () {
-    // getting the current path
-    const pathName = usePathname();
+export default function Scripts() {
 
-    // loading the scripts on every route change
-    useEffect(() => {
-        const loadScript = (src) => {
-            // creating a new script element
-            const script = document.createElement('script');
-            script.src = src;
-            script.defer = true;
-            document.body.appendChild(script);
+  const pathname = usePathname();
+  useEffect(() => {
+    const loadScript = (src) => {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+    };
 
-            // cleaning up the scripts
-            return () => {
-                document.body.removeChild(script);
-            };
-        };
+    // const cssFiles = [
+    //   "css/plugins/fontawesome-5.css",
+    //   "css/vendor/bootstrap.min.css",
+    //   "css/vendor/swiper.css",
+    //   "css/vendor/metismenu.css",
+    //   "css/vendor/fonts.css",
+    //   "css/vendor/magnific-popup.css",
+    //   "css/style.css",
+     
+    // ];
 
-        // array containing all the script src's
-        const scripts = [
-            '/js/vendor/jquery.min.js',
-            '/js/plugins/audio.js',
-            '/js/vendor/bootstrap.min.js',
-            '/js/vendor/swiper.js',
-            '/js/vendor/metisMenu.min.js',
-            '/js/plugins/audio.js',
-            '/js/plugins/magnific-popup.js',
-            '/js/plugins/contact-form.js',
-            '/js/plugins/resize-sensor.min.js',
-            '/js/plugins/theia-sticky-sidebar.min.js',
-            '/js/main.js',
-        ];
+    const jsFiles = [
+      'js/vendor/jquery.min.js',
+      'js/plugins/audio.js',
+      'js/vendor/bootstrap.min.js',
+      'js/vendor/swiper.js',
+      'js/vendor/metisMenu.min.js',
+      'js/plugins/magnific-popup.js',
+      'js/plugins/contact-form.js',
+      'js/plugins/resize-sensor.min.js',
+      'js/plugins/theia-sticky-sidebar.min.js',
+      'js/main.js',
+    ];
 
-        // passing all the src's to loadScript function
-        const cleanUpFunctions = scripts.map(loadScript);
+    const loadJSFiles = async () => {
+      try {
+        for (const js of jsFiles) {
+          await loadScript(js); // Pass js file path as a string
+        }
+      } catch (error) {
+        console.error("Error loading assets:", error);
+      }
+    };
 
-        // calling the cleanup on all scripts
-        return () => {
-            cleanUpFunctions.forEach((cleanUp) => cleanUp());
-        };
-    }, [pathName]);
+    loadJSFiles();
+
+    // Clean up on unmount
+    return () => {
+      jsFiles.forEach((js) => {
+        const script = document.querySelector(`script[src="${js}"]`); // Correct selector
+        script && script.parentNode.removeChild(script);
+      });
+    };
+  }, [pathname]);
+
+  return null;
 }

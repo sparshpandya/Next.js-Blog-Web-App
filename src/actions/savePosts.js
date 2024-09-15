@@ -2,7 +2,17 @@
 import clientPromise from "@/db/db";
 import { writeFile } from "fs/promises";
 import { join } from "path";
-export const savePosts = async (e) => {
+import { v2 as cloudinary } from "cloudinary";
+let imageUrl;
+export async function GetImageUrl(result) {
+    if (result.event === "success") {
+        imageUrl = result.info.secure_url;
+    } else {
+        return false;
+    }
+}
+
+export async function savePosts(e) {
     const client = await clientPromise;
     const db = await client.db("Techfacts_Db");
     const posts = await db.collection("Posts");
@@ -14,17 +24,9 @@ export const savePosts = async (e) => {
         await db.createCollection("totalPosts");
     } else if (e) {
         try {
-            // uploading the image file in the public folder
-            const image = e.get("image") || null;
-
-            const bytes = await image.arrayBuffer();
-            const buffer = Buffer.from(bytes);
-
-            const rootDir = process.cwd();
-            const path = join(rootDir, 'public', 'images', 'blog', image.name);
-
-            await writeFile(path, buffer);
-            if (path) {
+            
+            if (imageUrl) {
+                console.log("image backend", imageUrl);
                 // adding a post count
                 await totalPosts.findOneAndUpdate({ id: 'totalPosts' }, {
                     $set: { id: 'totalPosts' },
@@ -44,9 +46,9 @@ export const savePosts = async (e) => {
                         id: postId,
                         title: e.get("title"),
                         categoryId: parseInt(e.get("category")),
-                        readingTime: e.get("readingTime"),
+                        readingTime: parseInt(e.get("readingTime")),
                         createdAt: e.get("date"),
-                        image: image.name,
+                        image: imageUrl,
                         description: e.get("description"),
                         userId: e.get("userId")
                     });
