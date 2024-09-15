@@ -6,10 +6,7 @@ let clientPromise;
 if (!global._mongoClientPromise) {
     // Create a new MongoClient and connect it to MongoDB
     try{
-        client = new MongoClient(process.env.MONGODB_CONN_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        client = new MongoClient(process.env.MONGODB_CONN_URL);
         // Store the connection promise in the global scope
         global._mongoClientPromise = client.connect();
     } catch(e) {
