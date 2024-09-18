@@ -77,12 +77,11 @@ export default function Navbar() {
                   </nav>
                 </div>
                 <div className="col-xl-2 col-lg-2 col-md-5 col-sm-5 col-5 p-0">
-                  <div className="eblog-header-top-social-media">
-                    {/* Search Button */}
-                    <Link
+                  <div class="eblog-header-top-social-media">
+                    <a
                       href="#"
                       id="search"
-                      className="eblog-header-top-search-btn search-icon action-item icon"
+                      class="eblog-header-top-search-btn search-icon action-item icon"
                     >
                       <svg
                         width="20"
@@ -96,10 +95,25 @@ export default function Navbar() {
                           fill="#1E1E1E"
                         />
                       </svg>
-                    </Link>
-
-                    {/* Cart Button */}
-                    <Link href="#" className="cart-bar">
+                    </a>
+                    <div class="search-input-area">
+                      <div class="container">
+                        <div class="search-input-inner">
+                          <div class="input-div">
+                            <input
+                              id="searchInput1"
+                              class="search-input"
+                              type="text"
+                              placeholder="Search by keyword or #"
+                            />
+                          </div>
+                          <div class="search-close-icon">
+                            <i class="fa-regular fa-xmark-large rt-xmark"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <a href="#" class="cart-bar">
                       <svg
                         width="20"
                         height="19"
@@ -120,14 +134,12 @@ export default function Navbar() {
                           fill="#1E1E1E"
                         />
                       </svg>
-                    </Link>
-
-                    {/* Menu Button */}
-                    <div className="eblog-header-top-menu-bar menu-btn">
+                    </a>
+                    <div class="eblog-header-top-menu-bar menu-btn">
                       <a href="javascript:void(0)">
-                        <div className="line small"></div>
-                        <div className="line big"></div>
-                        <div className="line small"></div>
+                        <div class="line small"></div>
+                        <div class="line big"></div>
+                        <div class="line small"></div>
                       </a>
                     </div>
 
@@ -140,8 +152,8 @@ export default function Navbar() {
                             className="focus:outline-none flex items-center space-x-2"
                           >
                             <img
-                            width={50}
-                            height={50}
+                              width={50}
+                              height={50}
                               src={
                                 session.user.image ||
                                 "/images/user-placeholder.png"
@@ -239,6 +251,90 @@ export default function Navbar() {
           </div>
         </div>
       </header>
+      <div id="side-bar" class="side-bar header-one">
+        <div class="inner">
+          <button class="close-icon-menu">
+            <i class="far fa-times"></i>
+          </button>
+          <div class="inner-main-wrapper-desk d-none d-lg-block">
+            <div class="thumbnail">
+              <img src="assets/images/logo/logo-01-w.svg" alt="eblog" />
+            </div>
+            <div class="inner-content">
+              <div class="newsletter-form">
+                <div class="form-inner">
+                  <div class="content">
+                    <h3 class="title mb--20">Get Newsletter</h3>
+                  </div>
+                  <form action="#">
+                    <div class="input-div">
+                      <input
+                        type="email"
+                        placeholder="Your email..."
+                        required
+                      />
+                    </div>
+                    <button type="submit" class="subscribe-btn">
+                      Subscribe Now
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mobile-menu d-block d-lg-none">
+          <nav class="nav-main mainmenu-nav mt--30">
+            <ul class="mainmenu" id="mobile-menu-active">
+              {protectedRoutes.map((link) => {
+                return (
+                  <li key={link.name} className="menu-item">
+                    <Link
+                      href={link.href}
+                      className="main mobile-menu-link close-icon-menu"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="eblog-popup-model" id="id01">
+        <div class="eblog-popup-transition">
+          <div class="model-content animate-subscribe-popup">
+            <a
+              href="javascript:void(0)"
+              onclick="document.getElementById('id01').style.display='none'"
+            >
+              <i class="fa-regular fa-xmark"></i>
+            </a>
+            <div class="eblog-p-flexing">
+              <div class="form">
+                <div class="eblog-p-sub-heading">
+                  <p>Weekly Updates</p>
+                </div>
+                <div class="eblog-p-sub-heading">
+                  <h3>Let's join our newsletter!</h3>
+                </div>
+                <form method="POST">
+                  <input
+                    type="email"
+                    required
+                    placeholder="Enter Your Email.."
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+                <div class="eblog-bottom-popup">
+                  <p>Do not worry we don't spam!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

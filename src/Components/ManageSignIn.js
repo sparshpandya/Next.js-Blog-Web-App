@@ -15,7 +15,6 @@ export default function ManageSignIn() {
                         <div className="row justify-content-center">
                             <div className="col-lg-4 col-md-8">
                                 <h2 className="heading-title text-center">Sign In</h2>
-                                <h4>{login || ''}</h4>
                                 <Form action={login}>
                                     <div className="form-inner inner">
                                         <div className="single-input-wrapper">
