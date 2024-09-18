@@ -317,7 +317,7 @@ export default function Navbar() {
                   <p>Weekly Updates</p>
                 </div>
                 <div class="eblog-p-sub-heading">
-                  <h3>Let's join our newsletter!</h3>
+                  <h3>Let&apos;s join our newsletter!</h3>
                 </div>
                 <form method="POST">
                   <input
@@ -328,7 +328,7 @@ export default function Navbar() {
                   <button type="submit">Submit</button>
                 </form>
                 <div class="eblog-bottom-popup">
-                  <p>Do not worry we don't spam!</p>
+                  <p>Do not worry we don&apos;t spam!</p>
                 </div>
               </div>
             </div>
