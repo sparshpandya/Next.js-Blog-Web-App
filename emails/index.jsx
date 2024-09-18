@@ -11,7 +11,7 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-const baseUrl = process.env.BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const NotionMagicLinkEmail = (token) => {
   const verificationLink = `${baseUrl}/user-verify/${token}`;
