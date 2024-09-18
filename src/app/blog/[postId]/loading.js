@@ -69,8 +69,6 @@ export default function Loading() {
                       </div>
                       {/* Comments Loader */}
                       <CommentsLoader />
-                      <CommentsLoader />
-                      <CommentsLoader />
                       {/* Comments Form Loader */}
                       <CommentFormLoader />
                     </div>

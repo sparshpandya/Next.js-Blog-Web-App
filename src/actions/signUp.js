@@ -8,6 +8,7 @@ export default async function signUp(e) {
     const client = await clientPromise;
     const db = await client.db("Techfacts_Db");
     const users = await db.collection("Users");
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
     if (!users) {
         db.createCollection("Users");
@@ -44,7 +45,7 @@ export default async function signUp(e) {
             );
 
             // sending verification email
-            const response = await fetch("http://localhost:3000/api/mail", {
+            const response = await fetch(`${baseUrl}/api/mail`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

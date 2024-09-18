@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { fetchUserByEmail } from "@/actions/fetchUser";
@@ -16,17 +16,20 @@ const protectedRoutes = [
 export default function Navbar() {
   const pathName = usePathname();
   const { data: session } = useSession();
-
   const [user, setUser] = useState({});
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     if (session) {
-      // fetching the user object from the db
       fetchUserByEmail(session.user.email).then((result) => {
         setUser(result);
       });
     }
   }, [session]);
+
+  const toggleDropdown = () => {
+    setDropdownOpen((prev) => !prev);
+  };
 
   return (
     <>
@@ -43,6 +46,7 @@ export default function Navbar() {
                         height={0}
                         src="/images/logo/logo.png"
                         alt="eblog"
+                        className="px-2 w-60 md:w-full"
                       />
                     </Link>
                   </div>
@@ -51,48 +55,30 @@ export default function Navbar() {
                   <nav>
                     <div className="eblog-home-1-menu">
                       <ul className="list-unstyled eblog-desktop-menu">
-                        {protectedRoutes &&
-                          protectedRoutes.length > 0 &&
-                          protectedRoutes.map((link) => {
-                            const isActive = link.href === pathName;
-                            return (
-                              <li key={link.name} className="menu-item">
-                                <Link
-                                  href={link.href}
-                                  key={link.name}
-                                  className={
-                                    isActive
-                                      ? "active"
-                                      : "eblog-dropdown-main-element"
-                                  }
-                                >
-                                  {link.name}
-                                </Link>
-                              </li>
-                            );
-                          })}
+                        {protectedRoutes.map((link) => {
+                          const isActive = link.href === pathName;
+                          return (
+                            <li key={link.name} className="menu-item">
+                              <Link
+                                href={link.href}
+                                className={
+                                  isActive
+                                    ? "active"
+                                    : "eblog-dropdown-main-element"
+                                }
+                              >
+                                {link.name}
+                              </Link>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </div>
                   </nav>
                 </div>
                 <div className="col-xl-2 col-lg-2 col-md-5 col-sm-5 col-5 p-0">
                   <div className="eblog-header-top-social-media">
-                    {Object.keys(user).length === 0 && (
-                      <div class="inline-flex">
-                        <Link
-                          href="/sign-up"
-                          class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
-                        >
-                          Sign Up
-                        </Link>
-                        <Link
-                          href="/sign-in"
-                          class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
-                        >
-                          Sign In
-                        </Link>
-                      </div>
-                    )}
+                    {/* Search Button */}
                     <Link
                       href="#"
                       id="search"
@@ -111,23 +97,8 @@ export default function Navbar() {
                         />
                       </svg>
                     </Link>
-                    <div className="search-input-area">
-                      <div className="container">
-                        <div className="search-input-inner">
-                          <div className="input-div">
-                            <input
-                              id="searchInput1"
-                              className="search-input"
-                              type="text"
-                              placeholder="Search by keyword or #"
-                            />
-                          </div>
-                          <div className="search-close-icon">
-                            <i className="fa-regular fa-xmark-large rt-xmark"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+
+                    {/* Cart Button */}
                     <Link href="#" className="cart-bar">
                       <svg
                         width="20"
@@ -150,34 +121,117 @@ export default function Navbar() {
                         />
                       </svg>
                     </Link>
-                    <div class="eblog-header-top-menu-bar menu-btn">
+
+                    {/* Menu Button */}
+                    <div className="eblog-header-top-menu-bar menu-btn">
                       <a href="javascript:void(0)">
-                        <div class="line small"></div>
-                        <div class="line big"></div>
-                        <div class="line small"></div>
+                        <div className="line small"></div>
+                        <div className="line big"></div>
+                        <div className="line small"></div>
                       </a>
                     </div>
 
-                    {session && (
-                      <div className="eblog-header-top-menu-bar menu-btn">
-                        <img
-                          width={50}
-                          height={50}
-                          src={session.user.image}
-                          alt="user image"
-                        />{" "}
-                        - {user.name}
-                        <p>Email: {user.email}</p>
-                        <button
-                          onClick={() => {
-                            signOut({ callbackUrl: "/sign-in" });
-                          }}
-                          className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
-                        >
-                          <span>Sign Out</span>
-                        </button>
-                      </div>
-                    )}
+                    {/* User Dropdown */}
+                    <div className="relative">
+                      {session ? (
+                        <div>
+                          <button
+                            onClick={toggleDropdown}
+                            className="focus:outline-none flex items-center space-x-2"
+                          >
+                            <img
+                            width={50}
+                            height={50}
+                              src={
+                                session.user.image ||
+                                "/images/user-placeholder.png"
+                              }
+                              alt="User"
+                              className="w-12 rounded-full border border-gray-300 md:w-2/5"
+                            />
+                          </button>
+
+                          {/* Dropdown with effects */}
+                          {dropdownOpen && (
+                            <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-xl transition-transform transform scale-100 opacity-100 duration-300 ease-in-out py-4 z-50">
+                              {/* User details */}
+                              <div className="px-6 py-3 border-b">
+                                <p className="text-xl text-center text-gray-900 font-semibold">
+                                  {user.name}
+                                </p>
+                                <p className="text-lg text-gray-900">
+                                  {user.email}
+                                </p>
+                              </div>
+
+                              {/* Manage account */}
+                              <div className="px-6 py-3">
+                                <Link
+                                  href="/sign-up"
+                                  className="block text-center text-md text-blue-600 hover:bg-gray-100 hover:text-blue-800 py-3"
+                                >
+                                  Sign Up
+                                </Link>
+                              </div>
+
+                              {/* Sign out */}
+                              <div className="px-6 py-3 border-t">
+                                <button
+                                  onClick={() =>
+                                    signOut({ callbackUrl: "/sign-in" })
+                                  }
+                                  className="w-full text-center text-left text-md text-red-600 hover:bg-gray-100 hover:text-red-800 px-4 py-3 rounded-md"
+                                >
+                                  Sign Out
+                                </button>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div>
+                          <button
+                            onClick={toggleDropdown}
+                            className="focus:outline-none flex items-center space-x-2"
+                          >
+                            <div className="w-12 h-12 flex items-center justify-center bg-gray-300 rounded-full">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6 text-gray-700"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 19.5a7.5 7.5 0 1115 0H4.5z"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+
+                          {/* Dropdown with effects for non-signed-in users */}
+                          {dropdownOpen && (
+                            <div className="absolute right-0 mt-2 w-60 bg-white rounded-lg shadow-xl transition-transform transform scale-100 opacity-100 duration-300 ease-in-out py-4 z-50">
+                              <Link
+                                href="/sign-up"
+                                className="block text-center text-md text-blue-600 hover:bg-gray-100 hover:text-blue-800 py-3"
+                              >
+                                Sign Up
+                              </Link>
+                              <Link
+                                href="/sign-in"
+                                className="block text-center text-md text-blue-600 hover:bg-gray-100 hover:text-blue-800 py-3"
+                              >
+                                Sign In
+                              </Link>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -185,61 +239,6 @@ export default function Navbar() {
           </div>
         </div>
       </header>
-      <div id="side-bar" class="side-bar header-one">
-        <div class="inner">
-          <button class="close-icon-menu">
-            <i class="far fa-times"></i>
-          </button>
-          <div class="inner-main-wrapper-desk d-none d-lg-block">
-            <div class="thumbnail">
-              <img src="/images/logo/logo-01-w.svg" alt="eblog" />
-            </div>
-            <div class="inner-content">
-              <div class="newsletter-form">
-                <div class="form-inner">
-                  <div class="content">
-                    <h3 class="title mb--20">Get Newsletter</h3>
-                  </div>
-                  <form action="#">
-                    <div class="input-div">
-                      <input
-                        type="email"
-                        placeholder="Your email..."
-                        required
-                      />
-                    </div>
-                    <button type="submit" class="subscribe-btn">
-                      Subscribe Now
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mobile-menu d-block d-lg-none">
-          <nav class="nav-main mainmenu-nav mt--30">
-            <ul class="mainmenu" id="mobile-menu-active">
-              <li class="has-droupdown">
-                {protectedRoutes &&
-                  protectedRoutes.length > 0 &&
-                  protectedRoutes.map((link) => {
-                    const isActive = link.href === pathName;
-                    return (
-                      <Link
-                        href={link.href}
-                        key={link.name}
-                        className="main close-icon-menu"
-                      >
-                        {link.name}
-                      </Link>
-                    );
-                  })}
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
     </>
   );
 }

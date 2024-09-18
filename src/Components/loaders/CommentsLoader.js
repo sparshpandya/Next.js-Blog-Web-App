@@ -5,6 +5,8 @@ export function CommentsLoader() {
     <div className="mt-5 text-center">
       <h1>Show Comments</h1>
       <SkeletonLoader width={984} height={45} />
+      <SkeletonLoader width={984} height={45} />
+      <SkeletonLoader width={984} height={45} />
     </div>
   );
 }
