@@ -6,8 +6,6 @@ export default function NewsLetter() {
                     <p class="sub-title">Weekly updates</p>
                     <h2 class="section-title">Join our newsletter for <br />
                         latest updates!</h2>
-                    <p class="desc">Nisi dignissim tortor sed quam sed ipsum ut. <br />
-                        Montes, morbi euismod elit.</p>
                     <form action="#" class="newsletter-form">
                         <div class="form-inner">
                             <div class="single-input-wrapper">

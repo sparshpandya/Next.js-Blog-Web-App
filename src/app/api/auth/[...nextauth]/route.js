@@ -9,14 +9,6 @@ export const authOptions = {
   callbacks: {
     // user object returned by the provider
     async signIn({ user, account, profile }) {
-      console.log("user", user);
-      
-      console.log("...............................");
-      
-      console.log("user", account);
-      console.log("...............................");
-      console.log("user", profile);
-      console.log("...............................");
       
       try { 
         // saving the user in the database
