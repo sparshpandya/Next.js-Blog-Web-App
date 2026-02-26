@@ -6,7 +6,7 @@ Tech Stack: Next.js, MongoDB, NextAuth, Cloudinary, Tailwind CSS
 
 To run this project:
   1. Open the root folder in terminal and run npm i.
-  2. Run npm run dev in both terminals.
+  2. Run npm run dev.
   3. Open http://localhost:3000/ and explore my website.
 
 Thank you very much.
